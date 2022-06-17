@@ -51,3 +51,7 @@ $ go build
 ```
 $ go install github.com/moson-mo/reminder
 ```
+
+#### Dependencies
+
+[Go D-Bus library](https://github.com/godbus/dbus/)
