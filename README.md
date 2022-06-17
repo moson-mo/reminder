@@ -1,28 +1,27 @@
 # reminder
-## A simple background service that periodically sends notifications via D-Bus
+## A simple service that periodically sends notifications via D-Bus
 
-reminder allows you to configure tasks that are executed in a specific interval.  
-When a task is executed a notification is sent via D-Bus (org.freedesktop.Notifications.Notify).  
-The notification message can be enriched with output of a command.
+reminder allows you to configure period tasks sending a notification message via D-Bus (org.freedesktop.Notifications.Notify).  
+The title and message body can be enriched with the output of a command.
 
-Tasks / Notifications can be configured in ~/.config/reminder/tasks.json
+Tasks / Notifications can be configured in `~/.config/reminder/tasks.json`.
 
 #### Configuration
 
 ```
 {
-	"Tasks": [
-		{
-			"Title": "Example {result}",
-			"Message": "Example message\n{result}\n\nCustomize your notifications by editing tasks.json at ~/.config/reminder/",
-			"TitleCommand": "echo \"Output Title\"",
-			"MessageCommand": "echo \"Output Message\"",
-			"ConditionCommand": "echo \"true\"",
-			"Icon": "gtk-preferences",
-			"Interval": 600,
-			"NotificationDuration": 5
-		}
-	]
+  "Tasks": [
+    {
+      "Title": "Example {result}",
+      "Message": "Example message\n{result}\n\nCustomize your notifications by editing tasks.json at ~/.config/reminder/",
+      "TitleCommand": "echo \"Output Title\"",
+      "MessageCommand": "echo \"Output Message\"",
+      "ConditionCommand": "echo \"true\"",
+      "Icon": "gtk-preferences",
+      "Interval": 600,
+      "NotificationDuration": 5
+    }
+  ]
 }
 ```
 
@@ -38,3 +37,17 @@ Interval| The interval in which the task is executed and notification is shown (
 NotificationDuration| Number of seconds a notification is shown|
 
 Here some [examples](examples)
+
+#### Build
+
+```
+$ git clone https://github.com/moson-mo/reminder.git
+$ cd reminder
+$ go build
+```
+
+#### Install
+
+```
+$ go install github.com/moson-mo/reminder
+```

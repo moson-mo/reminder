@@ -54,7 +54,10 @@ func Start() error {
 func runTask(task Task) {
 	for {
 		if task.ConditionCommand != "" {
-			cRes := runCommand(task.ConditionCommand)
+			cRes, err := runCommand(task.ConditionCommand)
+			if err != nil {
+				fmt.Println("Error running condition command", err)
+			}
 			if !strings.HasPrefix(cRes, "true") {
 				time.Sleep(time.Second * time.Duration(task.Interval))
 				continue
@@ -64,16 +67,27 @@ func runTask(task Task) {
 		tRes := ""
 		mRes := ""
 		if task.TitleCommand != "" {
-			tRes = runCommand(task.TitleCommand)
+			var err error
+			tRes, err = runCommand(task.TitleCommand)
+			if err != nil {
+				fmt.Println("Error running title command", err)
+			}
 		}
 		if task.MessageCommand != "" {
-			mRes = runCommand(task.MessageCommand)
+			var err error
+			mRes, err = runCommand(task.MessageCommand)
+			if err != nil {
+				fmt.Println("Error running message command", err)
+			}
 		}
 
 		title := strings.ReplaceAll(task.Title, "{result}", tRes)
 		message := strings.ReplaceAll(task.Message, "{result}", mRes)
 
-		notify(title, message, task.Icon, task.NotificationDuration)
+		err := notify(title, message, task.Icon, task.NotificationDuration)
+		if err != nil {
+			fmt.Println("Error sending notification", err)
+		}
 		time.Sleep(time.Second * time.Duration(task.Interval))
 	}
 }
@@ -88,15 +102,15 @@ func getShell() string {
 }
 
 // execute command and return output
-func runCommand(command string) string {
+func runCommand(command string) (string, error) {
 	shell := getShell()
 	args := []string{"-c", command}
 	cmd := exec.Command(shell, args...)
 	result, err := cmd.Output()
 	if err != nil {
-		return err.Error()
+		return err.Error(), err
 	}
-	return string(result)
+	return string(result), nil
 }
 
 // send notification via D-Bus
