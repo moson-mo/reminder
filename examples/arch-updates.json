@@ -1,0 +1,14 @@
+{
+	"Tasks": [
+		{
+			"Title": "Updates available: {result}",
+			"Message": "{result}",
+			"TitleCommand": "checkupdates | wc -l",
+			"MessageCommand": "checkupdates",
+			"ConditionCommand": "if [[ $(checkupdates | wc -l) > 0 ]]; then echo true; else echo false; fi",
+			"Icon": "up",
+			"Interval": 1800,
+			"NotificationDuration": 5
+		}
+	]
+}

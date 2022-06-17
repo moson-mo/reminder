@@ -1,0 +1,10 @@
+{
+	"Tasks": [
+		{
+			"Title": "Still busy?",
+			"Message": "Take a break ;)",
+			"Interval": 7200,
+			"NotificationDuration": 10
+		}
+	]
+}
