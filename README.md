@@ -48,8 +48,14 @@ $ go build
 
 #### Install
 
+##### Latest version
 ```
-$ go install github.com/moson-mo/reminder
+$ go install github.com/moson-mo/reminder@latest
+```
+
+##### Specific version
+```
+$ go install github.com/moson-mo/reminder@v0.1.0
 ```
 
 #### Dependencies
